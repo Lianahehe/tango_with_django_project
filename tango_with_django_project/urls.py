@@ -19,10 +19,14 @@ from django.urls import include
 #in order for a user to see your view, we must map a URL to the view
 from rango import views
 
+#tells Django to serve static content from MEDIA_URL
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     #maps the basic URL to the index view in the rango app
     path('', views.index, name='index'),
     #maps any URLs starting with rango/ to be handled by rango
     path('rango/', include('rango.urls')),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

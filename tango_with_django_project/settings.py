@@ -18,7 +18,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #references our new templates directory, os.path.join() function to join up multiple paths
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+# we need to tell Django abt the new static directory we made
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
+#Serving Media bit (4.3), instructs Django that media files will be uploaded to your Django project’s root, plus ‘/media’
+MEDIA_DIR = os.path.join(BASE_DIR,'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -31,8 +35,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#these variables will be picked up and used by Django to set up media file hosting (tells Django where to look in the filesysytem for media files(MEDIA_ROOT) that have been uploaded and stored, and what URL to serve them from (MEDIA_URL)
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
 
 # Application definition
+
+# list of paths that which Django will expect to find static files that can be served
+STATICFILES_DIRS = [STATIC_DIR, ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -69,6 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #we added this line, obtain a reference to the MEDIA_URL path when we need to reference uploaded content
+                'django.template.context_processors.media',
             ],
         },
     },
