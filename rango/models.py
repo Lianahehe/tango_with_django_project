@@ -1,16 +1,22 @@
+from django.template.defaultfilters import slugify
 from django.db import models
 
 #created the two initial data models for the Rango application
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
-
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
+    # replaces whitespace with hyphens using slugify function
+    slug = models.SlugField(unique=True)
 
+    #override the save method, this new function will call slugify function and update new slug field with it
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
 
     #typo within admin interface can be fixed using code below.On the page, it was Categorys instead of Categories
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
