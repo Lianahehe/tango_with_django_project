@@ -5,7 +5,7 @@ from rango.models import Category, Page
 #created one view called index, each view takes in at least one argument(a HttpRequest object)
 #index() function is responsible for the main page view
 def about(request):
-    return HttpResponse("Rango says heres the about page")
+    return render(request, 'rango/about.html')
     
 def index(request):
     # 6.2 : asked the database for a list of all categories currently stored then order it by number of likes in descending order, but we asked for top 5 only, or all if its less than 5. Then we place the list in our context_dict(w our bold message) n that'll be passed to the template engine 
