@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-#in order for a user to see your view, we must map a URL to the view
 from rango import views
 
 #tells Django to serve static content from MEDIA_URL
