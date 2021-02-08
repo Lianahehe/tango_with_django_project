@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category
 from rango.models import Page
+from rango.forms import CategoryForm
+from django.shortcuts import redirect
 
 #created one view called index, each view takes in at least one argument(a HttpRequest object)
 #index() function is responsible for the main page view
@@ -10,14 +12,11 @@ def about(request):
     return render(request, 'rango/about.html')
     
 def index(request):
-    # 6.2 : asked the database for a list of all categories currently stored then order it by number of likes in descending order, but we asked for top 5 only, or all if its less than 5. Then we place the list in our context_dict(w our bold message) n that'll be passed to the template engine 
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
 
-     # Constructs a dict to pass to the template engine as its context
-     # The key boldmessage matches to {{boldmessage}} in the template
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
@@ -53,6 +52,21 @@ def show_category(request, category_name_slug):
 
     return render(request, 'rango/category.html', context=context_dict)
 
+def add_category(request):
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            # it saves the new category to database
+            form.save(commit=True)
+            return redirect('/rango/')
+
+        else:
+            print(form.errors)
+
+    return render(request, 'rango/add_category.html', {'form' : form})
             
 
 
