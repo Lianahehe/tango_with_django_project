@@ -23,3 +23,16 @@ class PageForm(forms.ModelForm):
         #can either exclude category field from the form or specify fields we wanna include
         #fields = ('title','url',)
         exclude = ('category',)
+    
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+
+        #if urls isnt empty and doesnt start with http://, then prepend 'http://'
+        if url and not url.startswith('http://'):
+            url = f'http://{url}'
+            cleaned_data['url'] = url
+        
+        return cleaned_data
+
+
