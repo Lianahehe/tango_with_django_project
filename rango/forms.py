@@ -19,7 +19,6 @@ class PageForm(forms.ModelForm):
 
     class Meta:
         model = Page
-
         #can either exclude category field from the form or specify fields we wanna include
         #fields = ('title','url',)
         exclude = ('category',)
@@ -32,6 +31,7 @@ class PageForm(forms.ModelForm):
         if url and not url.startswith('http://'):
             url = f'http://{url}'
             cleaned_data['url'] = url
+            print(url)
         
         return cleaned_data
 
