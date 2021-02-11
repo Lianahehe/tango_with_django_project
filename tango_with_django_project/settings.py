@@ -46,6 +46,7 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 
 LOGIN_URL = 'rango:login'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rango',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
