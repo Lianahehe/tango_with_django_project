@@ -11,7 +11,7 @@ from django.urls import reverse
 #created one view called index, each view takes in at least one argument(a HttpRequest object)
 #index() function is responsible for the main page view
 def about(request):
-    return render(request, 'rango/about.html')
+    return render(request, 'rango/about.html', {})
     
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
@@ -91,7 +91,7 @@ def add_page(request, category_name_slug):
                 page.views = 0
                 page.save()
 
-                return redirect(reverse('rango:show_category',kwargs={'category_name_slug':category_name_slug}))
+                return redirect(reverse('rango:show_category', kwargs={'category_name_slug':category_name_slug}))
             
         else:
             print(form.errors)

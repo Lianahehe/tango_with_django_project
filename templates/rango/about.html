@@ -2,16 +2,12 @@
 {% load staticfiles %} 
 
 {% block title_block %} 
-    About Rango.
-{%endblock%}
+    About Rango
+{% endblock %}
 
 {% block body_block %}
-    <h1>Rango says...</h1>
-    here is the about page
-    <div>
-        This tutorial has been put together by Liana<br />
-            <strong>{{ boldmessage }}</strong><br />
-    </div>
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat."/>
+    <h1> About </h1>
+    <strong>This tutorial has been put together by Liana</strong><br />
+    <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat."/><br />
     </div>
 {% endblock %}
