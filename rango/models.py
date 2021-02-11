@@ -1,5 +1,6 @@
 from django.template.defaultfilters import slugify
 from django.db import models
+from django.contrib.auth.models import User
 
 #created the two initial data models for the Rango application
 class Category(models.Model):
@@ -31,3 +32,14 @@ class Page(models.Model):
     #Django will display the string representation of the object, derived from __str__(). adding __str()__ will make debugging easy too
     def __str__(self):
         return self.title
+
+class UserProfile(models.Model):
+    #links UserProfile to a user model instance
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    #additional attributes we wanna include
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
